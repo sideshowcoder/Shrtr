@@ -1,0 +1,37 @@
+@shadowcolor: #000;
+
+.boxshadow (@radius: 5px) {
+  -moz-box-shadow: @radius @radius @radius @shadowcolor;
+  -webkit-box-shadow: @radius @radius @radius @shadowcolor;
+  box-shadow: @radius @radius @radius @shadowcolor;
+}
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+body {
+  background: url("/static/img/dbluebg.jpg");
+  padding: 40px 0 0 0;
+}
+
+
+
+#charts {
+  background: #404040;
+  margin: 40px 0 0 0;
+  padding: 10px;
+  .boxshadow;
+  .rounded-corners;
+
+  .chart-row {
+    padding: 10px 0 0 0;
+    color: #ddd;
+    h3 {
+      color: #ddd;
+    }
+  }
+
+}

@@ -2,11 +2,13 @@
  * Module dependencies.
  */
 
-var express = require("express"), api = require("./api")
+var express = require("express"), 
+    api = require("./api");
 
 var app = module.exports = express.createServer();
 
 // Configuration
+var port = process.env.PORT || 3000;
 
 app.configure(function(){
   app.use(express.bodyParser());
@@ -16,16 +18,24 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ 
+    dumpExceptions: true, 
+    showStack: true }
+  )); 
 });
 
 app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-// API
-app.get("/", api.index);
+// Request API
+app.get("/*", api.get);
 app.post("/shrtn", api.shorten);
 
-app.listen(3000);
-console.log("Shrtr server listening on port %d in %s mode", app.address().port, app.settings.env);
+// Startup 
+app.listen(port, function(){
+  console.log("Shrtr server listening on port %d in %s mode", 
+    app.address().port, 
+    app.settings.env
+  );
+});

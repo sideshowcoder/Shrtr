@@ -1,0 +1,35 @@
+<html>
+<head>
+  <link rel="stylesheet/less" href="/less/style.less">
+  <script src="/js/vendor/less.js"></script>
+  <script src="/js/vendor/modernizr-min.js"></script>
+</head>
+<body>
+  
+  <div id="wrapper">
+    <div id="main">
+      <div id="shrtr">
+        <%= body %>
+      </div>
+    </div>
+    <div id="footer">
+      <ul class="inlined">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Xozao</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Vars -->
+  <script>window.shrtrSurl = <%= surl %>;</script>
+  
+  <!-- Load library scripts -->
+  <script src="/js/vendor/jquery-1.7.1.min.js"></script>
+  
+  <!-- Load page scripts -->
+  <% if(jsmin) { %>
+    <script src="/js/app-min.js"></script>
+  <% } else { %>
+    <script src="/js/app.js"></script>
+  <% } %>
+</body>

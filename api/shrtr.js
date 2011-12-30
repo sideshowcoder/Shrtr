@@ -15,11 +15,11 @@ var Shrtr = function(opts) {
 
   // Handle interface loading
   app.get("/", function(req, res){
-    res.render("shrtn", { surl: false, jsmin: app.minifiedjs });
+    res.render("shrtr", { surl: false, jsmin: app.minifiedjs });
   });
 
   app.get("/:surl", function(req, res){
-    res.render("extn", { surl: req.params.surl, jsmin: app.minifiedjs });
+    res.render("shrtr", { surl: req.params.surl, jsmin: app.minifiedjs });
   });
 
   // Extend and shorten urls
@@ -28,7 +28,11 @@ var Shrtr = function(opts) {
       if(err) {
         resp = {"error": "Error"};
       } else {
-        resp = {"url": res};
+        if(res == null){
+          resp = {"error": "Not found"};
+        } else {
+          resp = {"url": res};
+        }
       }
       response.send(resp);
     });

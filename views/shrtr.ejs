@@ -1,0 +1,16 @@
+<div id="shrtr">
+</div>
+
+<script type="text/template" id="shrtr-form-template">
+  <form action="javascript:window.shrtrFormSubmit();" method="post" id="shrtr-url-form">  
+    <input class="url-input" type="text" url="url"> <br />
+    <input type="submit" class="btn" value="Shrtn">  
+  </form>  
+</script>
+
+<script type="text/template" id="shrtr-display-template">
+  <div class="shrtr-display">
+    <div class="url-display url-one"><a href="{{ urlOne }}">{{ urlOne }}</a></div>
+    <div class="url-display url-two"><a href="{{ urlTwo }}">{{ urlTwo }}</a></div>  
+  </div>
+</script>

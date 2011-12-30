@@ -5,26 +5,24 @@
   <script src="/js/vendor/modernizr-min.js"></script>
 </head>
 <body>
-  
+  <img id="bg" src="/img/shrtr.png" />
   <div id="wrapper">
     <div id="main">
-      <div id="shrtr">
-        <%= body %>
-      </div>
+      <%- body %>
     </div>
     <div id="footer">
       <ul class="inlined">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Xozao</a></li>
+        <li><a href="http://sideshowcoder.com">Author</a></li>
       </ul>
     </div>
   </div>
   
   <!-- Vars -->
-  <script>window.shrtrSurl = <%= surl %>;</script>
+  <script>window.shrtrSurl = "<%= surl %>";</script>
   
   <!-- Load library scripts -->
   <script src="/js/vendor/jquery-1.7.1.min.js"></script>
+  <script src="/js/vendor/underscore-min.js"></script>
   
   <!-- Load page scripts -->
   <% if(jsmin) { %>

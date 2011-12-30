@@ -32,7 +32,7 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   // heroku deploy uses REDISTOGO
-  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var rtg = require("url").parse(process.env.REDISTOGO_URL);
   var redis = require("redis").createClient(rtg.port, rtg.hostname);
   redis.auth(rtg.auth.split(":")[1]);
   Shrtr = new shrtr.Shrtr({ db: redis, app: app });

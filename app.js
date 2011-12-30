@@ -20,7 +20,7 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function(){
+app.configure('development', 'test', function(){
   // during local development we assume redis defaults on localhost
   redis = require("redis").createClient();
   Shrtr = new shrtr.Shrtr({ db: redis, app: app});

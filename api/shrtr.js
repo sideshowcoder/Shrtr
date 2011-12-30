@@ -15,11 +15,11 @@ var Shrtr = function(opts) {
 
   // Handle interface loading
   app.get("/", function(req, res){
-    res.render("shrtr", { surl: false, jsmin: app.minifiedjs });
+    res.render("shrtr", { surl: false });
   });
 
   app.get("/:surl", function(req, res){
-    res.render("shrtr", { surl: req.params.surl, jsmin: app.minifiedjs });
+    res.render("shrtr", { surl: req.params.surl });
   });
 
   // Extend and shorten urls

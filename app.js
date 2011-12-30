@@ -21,8 +21,6 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  // we dont use minified js during dev
-  app.minifiedjs = false;
   // during local development we assume redis defaults on localhost
   redis = require("redis").createClient();
   Shrtr = new shrtr.Shrtr({ db: redis, app: app});
@@ -33,8 +31,6 @@ app.configure('development', function(){
 });
 
 app.configure('production', function(){
-  // use the minified js in views
-  app.minifiedjs = false;
   // heroku deploy uses REDISTOGO
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
   var redis = require("redis").createClient(rtg.port, rtg.hostname);

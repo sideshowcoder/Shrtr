@@ -23,7 +23,7 @@ app.configure(function(){
 app.configure('development', 'test', function(){
   // during local development we assume redis defaults on localhost
   redis = require("redis").createClient();
-  Shrtr = new shrtr.Shrtr({ db: redis, app: app});
+  var s = shrtr({ db: redis, app: app});
   app.use(express.errorHandler({ 
     dumpExceptions: true, 
     showStack: true }
@@ -35,7 +35,7 @@ app.configure('production', function(){
   var rtg = require("url").parse(process.env.REDISTOGO_URL);
   var redis = require("redis").createClient(rtg.port, rtg.hostname);
   redis.auth(rtg.auth.split(":")[1]);
-  Shrtr = new shrtr.Shrtr({ db: redis, app: app });
+  var s = shrtr({ db: redis, app: app });
   app.use(express.errorHandler()); 
 });
 

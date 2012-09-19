@@ -3,13 +3,14 @@
  */
 
 var express = require("express"), 
+    http = require("http"),
     shrtr = require("./api/shrtr");
 
-var app = module.exports = express.createServer();
+var app = express(),
+    server = http.createServer(app);
 
 // Configuration
-var port = process.env.PORT || 3000,
-    Shrtr, redis;
+var port = process.env.PORT || 3000;
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
@@ -22,7 +23,7 @@ app.configure(function(){
 
 app.configure('development', 'test', function(){
   // during local development we assume redis defaults on localhost
-  redis = require("redis").createClient();
+  var redis = require("redis").createClient();
   var s = shrtr({ db: redis, app: app});
   app.use(express.errorHandler({ 
     dumpExceptions: true, 
@@ -40,9 +41,9 @@ app.configure('production', function(){
 });
 
 // Startup 
-app.listen(port, function(){
+server.listen(port, function(){
   console.log("Shrtr server listening on port %d in %s mode", 
-    app.address().port, 
+    port, 
     app.settings.env
   );
 });

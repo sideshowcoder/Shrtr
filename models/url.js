@@ -1,4 +1,4 @@
-/* 
+/*
  * Url model
  * opts: { db: REDISCONNECTION }
  */
@@ -7,7 +7,7 @@ var url = function(opts){
   var that = {},
       counter,
       db = opts.db;
-  
+
   db.setnx("counter", 0, function(err, res){
     if(err) throw "Initialization failed";
     if(res === 1) {
@@ -19,7 +19,7 @@ var url = function(opts){
       });
     }
   });
-  
+
   that.get = function(surl, cb){
     db.get(surl, function(err, res){
       if(err){
@@ -29,7 +29,7 @@ var url = function(opts){
       cb(null, res);
     });
   };
-  
+
   that.create = function(url, cb){
     db.incr("counter", function(err, res){
       if(err) {
@@ -46,7 +46,7 @@ var url = function(opts){
       });
     });
   };
-  
+
   return that;
 };
 

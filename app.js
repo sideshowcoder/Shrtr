@@ -1,13 +1,16 @@
 /**
- * Module dependencies.
- */
+* Module dependencies.
+*/
 
-var express = require("express"), 
-    http = require("http"),
-    shrtr = require("./api/shrtr");
+var express = require("express"),
+http = require("http"),
+shrtr = require("./api/shrtr");
 
 var app = express(),
-    server = http.createServer(app);
+server = http.createServer(app),
+redis
+
+module.exports = server;
 
 // Configuration
 var port = process.env.PORT || 3000;
@@ -23,27 +26,29 @@ app.configure(function(){
 
 app.configure('development', 'test', function(){
   // during local development we assume redis defaults on localhost
-  var redis = require("redis").createClient();
+  redis = require("redis").createClient();
   var s = shrtr({ db: redis, app: app});
-  app.use(express.errorHandler({ 
-    dumpExceptions: true, 
+  app.use(express.errorHandler({
+    dumpExceptions: true,
     showStack: true }
-  )); 
+  ));
 });
 
 app.configure('production', function(){
   // heroku deploy uses REDISTOGO
   var rtg = require("url").parse(process.env.REDISTOGO_URL);
-  var redis = require("redis").createClient(rtg.port, rtg.hostname);
+  redis = require("redis").createClient(rtg.port, rtg.hostname);
   redis.auth(rtg.auth.split(":")[1]);
   var s = shrtr({ db: redis, app: app });
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
-// Startup 
-server.listen(port, function(){
-  console.log("Shrtr server listening on port %d in %s mode", 
-    port, 
-    app.settings.env
-  );
-});
+// Startup
+if(process.env.NODE_ENV !== "test") {
+  server.listen(port, function(){
+    console.log("Shrtr server listening on port %d in %s mode",
+      port,
+      app.settings.env
+    );
+  });
+}

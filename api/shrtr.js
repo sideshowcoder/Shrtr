@@ -1,6 +1,6 @@
-/* 
+/*
  * Shrtr API
- * opts = { 
+ * opts = {
  *  db: REDISCONNECTION,
  *  app: APPLICATION
  * }
@@ -41,13 +41,13 @@ var shrtr = function(opts) {
   app.post("/shrtn", function(req, response){
     url.create(req.body.url, function(err, res){
       if(err) {
-        resp = {"error": "Error"};      
+        resp = {"error": "Error"};
       } else {
         resp = {"surl": res};
       }
       response.send(resp);
     });
-  });  
+  });
 };
 
 module.exports = shrtr;

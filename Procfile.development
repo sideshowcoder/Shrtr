@@ -1,0 +1,2 @@
+web: node-dev app.js
+redis: redis-server

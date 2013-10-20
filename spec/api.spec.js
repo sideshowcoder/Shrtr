@@ -2,6 +2,7 @@ process.env.NODE_ENV = "test"
 process.env.PORT = 9876
 
 var server = require("../app.js")
+var URL = require("../models/url")
 var request = require("request")
 
 describe("API", function() {
@@ -20,6 +21,7 @@ describe("API", function() {
 
   afterEach(function() {
     _server.close()
+    URL.closeConnection()
   })
 
   it("gets /", function(done) {

@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "jasmine-node": "~1.11.0",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "foreman": "0.0.25"
   }
 }

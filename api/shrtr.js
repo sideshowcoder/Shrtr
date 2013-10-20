@@ -6,29 +6,29 @@
  * }
  */
 
-var urlModel = require("../models/url");
+var URL = require("../models/url");
 
 var shrtr = function(opts) {
   // routes
   var app = opts.app;
-  var url = urlModel({ db: opts.db });
+  var url = URL();
 
   // Handle interface loading
-  app.get("/", function(req, res){
+  app.get("/", function(req, res) {
     res.render("shrtr", { surl: false });
   });
 
-  app.get("/:surl", function(req, res){
+  app.get("/:surl", function(req, res) {
     res.render("shrtr", { surl: req.params.surl });
   });
 
   // Extend and shorten urls
-  app.post("/extn", function(req, response){
-    url.get(req.body.surl, function(err, res){
+  app.post("/extn", function(req, response) {
+    url.get(req.body.surl, function(err, res) {
       if(err) {
         resp = {"error": "Error"};
       } else {
-        if(res === null){
+        if(res === null) {
           resp = {"error": "Not found"};
         } else {
           resp = {"url": res};
@@ -38,8 +38,9 @@ var shrtr = function(opts) {
     });
   });
 
-  app.post("/shrtn", function(req, response){
-    url.create(req.body.url, function(err, res){
+  app.post("/shrtn", function(req, response) {
+    console.log(req.body)
+    url.create(req.body.url, function(err, res) {
       if(err) {
         resp = {"error": "Error"};
       } else {

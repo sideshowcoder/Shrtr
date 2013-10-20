@@ -10,7 +10,7 @@
     // progress indicator
     shrtr.append(spin);
     spin.hide();
-    
+
     // templates using {{ }} as delimiters
     _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
     var displayTemplate = _.template($("#shrtr-display-template").html());
@@ -37,8 +37,8 @@
       });
       return true;
     };
-    
-    
+
+
     // we want to extned an url so display resolved and redirect
     if(window.shrtrSurl !== "false") {
       spin.show();
@@ -72,5 +72,5 @@
       shrtr.append(formTemplate());
     }
   });
-  
+
 })(jQuery);

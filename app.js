@@ -3,46 +3,42 @@
 */
 
 var express = require("express"),
-http = require("http"),
-shrtr = require("./api/shrtr");
+    jsonMiddleware = require("json-middleware"),
+    bodyParser = require("body-parser"),
+    errorHandler = require("errorhandler"),
+    http = require("http"),
+    shrtr = require("./api/shrtr");
 
 var app = express(),
-server = http.createServer(app);
+    server = http.createServer(app);
 
 module.exports = server;
 
+
 // Configuration
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000,
+    env = process.env.NODE_ENV || "development";
 
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.json());
-  app.use(express.urlencoded());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(jsonMiddleware.middleware());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express['static'](__dirname + '/public'));
 
-app.configure('development', 'test', function(){
-  var s = shrtr({ app: app});
-  app.use(express.errorHandler({
+var s = shrtr({ app: app});
+
+if(["development", "test"].indexOf(env) !== -1) {
+  app.use(errorHandler({
     dumpExceptions: true,
     showStack: true }
   ));
-});
-
-app.configure('production', function(){
-  var s = shrtr({ app: app });
-  app.use(express.errorHandler());
-});
+} else {
+  app.use(errorHandler());
+}
 
 // Startup
 if(process.env.NODE_ENV !== "test") {
   server.listen(port, function(){
-    console.log("Shrtr server listening on port %d in %s mode",
-      port,
-      app.settings.env
-    );
+    console.log("Shrtr server listening on port " + port + " in " + env + " mode");
   });
 }

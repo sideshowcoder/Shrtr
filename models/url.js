@@ -8,6 +8,12 @@ var URL = function() {
   var that = {};
   var counter;
 
+  var urlValidationExp = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
+
+  function isValidUrl(url) {
+     return urlValidationExp.test(url);
+  }
+
   URL.connection().setnx("counter", 0, function(err, res) {
     if(err) throw "Initialization failed";
     if(res === 1) {
@@ -31,6 +37,11 @@ var URL = function() {
   };
 
   that.create = function(url, cb) {
+    if(!isValidUrl(url)) {
+      cb(new Error("Invalid Url"));
+      return;
+    }
+
     URL.connection().incr("counter", function(err, res) {
       if(err) {
         cb(err);

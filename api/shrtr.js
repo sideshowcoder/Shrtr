@@ -39,7 +39,6 @@ var shrtr = function(opts) {
   });
 
   app.post("/shrtn", function(req, response) {
-    console.log(req.body)
     url.create(req.body.url, function(err, res) {
       if(err) {
         resp = {"error": "Error"};

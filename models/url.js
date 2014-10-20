@@ -61,24 +61,24 @@ var URL = function() {
   return that;
 };
 
-var db = null
+var db = null;
 URL.connection = function() {
-  if(db) return db // already connected
+  if(db) return db; // already connected
 
   if(process.env.REDISTOGO_URL) {
-    var redisToGo = url.parse(process.env.REDISTOGO_URL)
-    db = redis.createClient(redisToGo.port, redisToGo.hostname)
+    var redisToGo = url.parse(process.env.REDISTOGO_URL);
+    db = redis.createClient(redisToGo.port, redisToGo.hostname);
     db.auth(redisToGo.auth.split(":")[1]);
   } else {
     // asume local redis
-    db = redis.createClient()
+    db = redis.createClient();
   }
-  return db
+  return db;
 };
 
 URL.closeConnection = function() {
-  if(db) db.quit()
-  db = null
+  if(db) db.quit();
+  db = null;
 };
 
 module.exports = URL;
